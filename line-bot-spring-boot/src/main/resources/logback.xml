@@ -2,7 +2,7 @@
 <configuration debug="false" scan="true" scanPeriod="60 seconds">
 
     <contextName>logback</contextName>
-    <property name="log.path" value="/d:/line-bot.log"/>
+    <property name="log.path" value="/export/Logs/line-bot/line-bot.log"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

@@ -33,11 +33,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @LineMessageHandler
-public class EchoApplication {
-    private final Logger log = LoggerFactory.getLogger(EchoApplication.class);
+public class LineApplication {
+    private final Logger log = LoggerFactory.getLogger(LineApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(EchoApplication.class, args);
+        SpringApplication.run(LineApplication.class, args);
     }
 
     @EventMapping
