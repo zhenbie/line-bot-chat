@@ -6,6 +6,40 @@ line.bot:
   channelSecret: 1c70964615e6d067440f515c6fef46a9
   handler.path: /callback
 
+linecorp:
+  platform:
+    channel:
+      channelId: 1654453518
+      channelSecret: e7dda9e1bf8c7b62a770d9dd89b73244
+      callbackUrl: https://test-line-bot.aquiver.app/auth
+
+### mysql datasource config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://123.56.153.84:3306/line_demo_db?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: line_demo_db
+    password: 4/jy4Njx!bAi
+
+    ### hikari datasource config
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1765000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+# mybatis start
+
+# 注意：一定要对应mapper映射xml文件的所在路径
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  mybatis:
+    type-aliases-package: com.linecorp.bot.spring.boot.pojo.entity
+# mybatis end
+
 # log config
 logging:
   config:

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linecorp.bot.spring.boot.mapper.extra.UserShareLogExtraMapper">
+
+  <!-- 根据分享人的userId获取分享日志 -->
+  <select id="queryUserShareLogByUserId" resultType="com.linecorp.bot.spring.boot.pojo.dto.UserShareInfoDto">
+    <![CDATA[
+      SELECT
+        shareLog.to_user_id toUserId,
+        userInfo.display_name displayName,
+        userInfo.picture_url pictureUrl,
+        CASE
+          WHEN shareLog.share_status = '02' THEN
+            '已点击'
+          WHEN shareLog.share_status = '03' THEN
+            '已领取'
+          END shareStatus,
+        DATE_FORMAT(shareLog.create_time, '%Y-%m-%d %H:%i:%s') createTime
+      FROM
+        aqv_user_share_log shareLog
+      LEFT JOIN aqv_line_user_info userInfo ON shareLog.to_user_id = userInfo.user_id
+      WHERE shareLog.from_user_id = #{fromUserId,jdbcType=VARCHAR}
+      ORDER BY
+        shareLog.create_time DESC
+    ]]>
+  </select>
+
+</mapper>

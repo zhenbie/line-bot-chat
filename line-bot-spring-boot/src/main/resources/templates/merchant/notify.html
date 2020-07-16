@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="https://www.aquiver.app/aquiver.png"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,shrink-to-fit=no,maximum-scale=1,user-scalable=0"/>
+    <meta name="format-detection" content="email=no,telephone=no"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta property="og:url" content="https://www.aquiver.app"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="aquiver"/>
+    <meta property="og:description" content="Got a cost-effective buy? Get Coupon Before Shopping"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Merchant Activity</title>
+    <style>
+        p {
+            text-indent: 2em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h3>
+                通知服务示例
+            </h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <form class="form-horizontal edit-form" role="form">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">通知消息内容</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" rows="6" placeholder="请输入消息内容" id="message"
+                                  maxlength="1000"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="send">发送</button>
+                    <button type="button" class="btn btn-default" id="clear">清空</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script type="application/javascript">
+    jQuery(document).ready(function () {
+        Edit.init();
+    });
+
+    var Edit = function () {
+
+        var send = function () {
+            var message = $("#message").val();
+            $.ajax({
+                url: "/sendNotify",
+                data: JSON.stringify({
+                    message : message,
+                }),
+                type: "POST",
+                contentType: 'application/json;charset=utf-8', //设置请求头信息
+                dataType: "json",
+                success: function (json) {
+                    if (json.code === "success") {
+                        $("#message").val("消息发送成功");
+                    } else {
+                        $("#message").val(json.msg);
+                    }
+                },
+                error: function () {
+                    alert("通知发送失败");
+                }
+            });
+        }
+
+        var reset = function () {
+            $("#message").val("");
+        }
+
+        return {
+            init: function () {
+                $("#send").on("click", send);
+                $("#clear").on("click", reset);
+            }
+        };
+    }();
+</script>
+</html>
