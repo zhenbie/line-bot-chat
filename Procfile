@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar --port $PORT line-bot-spring-boot/target/line-bot-spring-boot.jar
+web: java $JAVA_OPTS -jar line-bot-spring-boot/target/line-bot-spring-boot.jar --port $PORT 
